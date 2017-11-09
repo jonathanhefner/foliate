@@ -1,28 +1,28 @@
-# Foliate
-Short description and motivation.
+# foliate
 
-## Usage
-How to use my plugin.
+Rails pagination.
+
 
 ## Installation
+
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'foliate'
+gem "foliate"
 ```
 
 And then execute:
+
 ```bash
 $ bundle
 ```
 
-Or install it yourself as:
-```bash
-$ gem install foliate
-```
 
 ## Contributing
-Contribution directions go here.
+
+Run `rake test` to run the tests.
+
 
 ## License
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+[MIT License](https://opensource.org/licenses/MIT)
