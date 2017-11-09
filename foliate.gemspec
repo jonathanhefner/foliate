@@ -7,11 +7,10 @@ require "foliate/version"
 Gem::Specification.new do |s|
   s.name        = "foliate"
   s.version     = Foliate::VERSION
-  s.authors     = [""]
-  s.email       = [""]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Foliate."
-  s.description = "TODO: Description of Foliate."
+  s.authors     = ["Jonathan Hefner"]
+  s.email       = ["jonathan.hefner@gmail.com"]
+  s.homepage    = "https://github.com/jonathanhefner/foliate"
+  s.summary     = %q{Rails pagination}
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
