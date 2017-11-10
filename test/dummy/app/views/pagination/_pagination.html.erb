@@ -1,0 +1,25 @@
+<div class="foliate-pagination">
+  <span class="foliate-page-link foliate-prev-link">
+    <%= link_to_if pagination.prev?, t("foliate.prev"), pagination.prev_page_params %>
+  </span>
+
+  <span class="foliate-i-of-n">
+    <form method="get" class="foliate-form">
+      <% pagination.query_params.each do |name, value| %>
+        <input type="hidden" name="<%= name %>" value="<%= value %>">
+      <% end %>
+
+      <input type="text" pattern="[0-9]*" class="foliate-page-input"
+        name="<%= Foliate.config.page_param %>"
+        value="<%= pagination.current_page %>">
+    </form>
+
+    <span class="foliate-of"><%= t("foliate.of") %></span>
+
+    <span class="foliate-total-pages"><%= pagination.total_pages %></span>
+  </span>
+
+  <span class="foliate-page-link foliate-next-link">
+    <%= link_to_if pagination.next?, t("foliate.next"), pagination.next_page_params %>
+  </span>
+</div>
