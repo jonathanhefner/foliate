@@ -47,8 +47,8 @@ module Foliate
     # returned Hash is intended for use with +link_to+, +url_for+, etc.
     #
     # @example usage in view
-    #   link_to "First", pagination.params_for_page(1)
-    #   link_to "Last", pagination.params_for_page(pagination.total_pages)
+    #   link_to "First", @pagination.params_for_page(1)
+    #   link_to "Last", @pagination.params_for_page(@pagination.total_pages)
     #
     # @param page_number [Integer]
     # @return [Hash]
@@ -58,15 +58,14 @@ module Foliate
       ) }
     end
 
-    # Indicates if there is an expected page previous to the current
-    # page.
+    # Indicates if there is a page expected before the current page.
     #
     # @return [Boolean]
     def prev?
       current_page > 1
     end
 
-    # Indicates if there is an expected page beyond the current page.
+    # Indicates if there is a page expected after the current page.
     #
     # @return [Boolean]
     def next?
@@ -77,7 +76,7 @@ module Foliate
     # false.  See also {#params_for_page}.
     #
     # @example usage in view
-    #   link_to_if pagination.prev?, "Previous", pagination.prev_page_params
+    #   link_to_if @pagination.prev?, "Previous", @pagination.prev_page_params
     #
     # @return [Hash, nil]
     def prev_page_params
@@ -88,7 +87,7 @@ module Foliate
     # false.  See also {#params_for_page}.
     #
     # @example usage in view
-    #   link_to_if pagination.next?, "Next", pagination.next_page_params
+    #   link_to_if @pagination.next?, "Next", @pagination.next_page_params
     #
     # @return [Hash, nil]
     def next_page_params

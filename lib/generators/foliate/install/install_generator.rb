@@ -2,6 +2,7 @@ require "foliate/config"
 require "rails/generators/base"
 
 module Foliate
+  # @!visibility private
   module Generators
     class InstallGenerator < Rails::Generators::Base
       source_root File.join(__dir__, "templates")

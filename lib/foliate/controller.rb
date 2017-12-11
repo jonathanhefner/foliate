@@ -20,7 +20,7 @@ module Foliate
     #
     # By default, if +records+ is an ActiveRecord::Relation, computes
     # the total number of pages by performing a SQL count query.  If the
-    # underlying table is very large, this query could have a noticeable
+    # underlying table is very large, this query can have a noticeable
     # performance cost.  This can be circumvented by specifying
     # +total_records:+, using an estimated or cached record count.
     #
@@ -28,10 +28,10 @@ module Foliate
     #   @posts = paginate(Post)
     #
     # @example paginated search
-    #   @posts = paginate(Post.where(status: params[:show_only]))
+    #   @posts = paginate(Post.where(author: params[:author]))
     #
     # @example user-specified per_page
-    #   @posts = paginate(Post, per_page: params[:at_a_time])
+    #   @posts = paginate(Post, per_page: params[:per])
     #
     # @example simple cached count
     #   count = Rails.cache.fetch("Post/count", expires_in: 5.minutes){ Post.count }

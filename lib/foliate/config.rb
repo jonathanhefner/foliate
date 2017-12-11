@@ -6,8 +6,8 @@ module Foliate
     attr_accessor :default_per_page
 
     # @return [Symbol]
-    #   URL query param name for specifying page numbers (defaults to
-    #   +:page+)
+    #   request query param name for specifying page numbers (defaults
+    #   to +:page+)
     attr_accessor :page_param
 
     def initialize
@@ -24,6 +24,7 @@ module Foliate
   end
 
   # @param c [Foliate::Config]
+  # @return [Foliate::Config]
   def self.config=(c)
     @config = c
   end
