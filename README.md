@@ -6,8 +6,8 @@ Pagination for Ruby on Rails.
 to a cleaner and much simpler implementation.
 
 **How is it different?**  Instead of extending ActiveRecord, or
-dynamically defining methods on objects after instantiating them,
-*foliate* adds a single method to ActionController:
+defining singleton methods on result sets at runtime, *foliate* adds a
+single method to ActionController:
 
 ```ruby
 ## app/controllers/posts_controller.rb
@@ -37,41 +37,52 @@ Do something with @posts here...
 <%= render @pagination %>
 ```
 
-**How does that look?**  By default, something like this:
+**What does it look like?**  By default, something like this:
 
 <img src="screenshots/page_input.png" alt="page input pagination">
 
 
-## More Information
+## Appearance
 
-**How do I customize the appearance of the pagination?**  Running the
-*foliate* installation generator creates
+The *foliate* installation generator creates
 "app/views/pagination/_pagination.html.erb" and
 "app/assets/stylesheets/pagination.css" in your project directory.
-These files can be edited to meet your needs.
+These files can be freely edited to suit your needs.
 
-**How many records are in each page?**  By default, *foliate* allots
-`Foliate.config.default_per_page` records per page, which is set in
-"config/initializers/foliate.rb".  However, this can be overridden by
-passing `per_page:` to `paginate`:
+## Records per page
+
+By default, *foliate* allots `Foliate.config.default_per_page` records
+per page, which can be configured in "config/initializers/foliate.rb".
+However, this can also be overridden on a per-Controller basis using the
+`per_page:` argument:
 
 ```ruby
 @posts = paginate(Post, per_page: 50)
 ```
 
-**What if I have a very large table, and don't want to incur a count of
-all records for each page?**  The `paginate` method accepts a
-`total_records:` argument, which will prevent a SQL count when set:
+## Page param name
+
+*foliate* uses the `:page` query param (i.e. `params[:page]`) to dictate
+the current page.  This can be configured by setting
+`Foliate.config.page_param` in "config/initializers/foliate.rb".  Doing
+so will properly affect both the `paginate` method and the `Pagination`
+object.
+
+## Avoiding SQL count on very large tables
+
+To determine the total number of pages, *foliate* performs a SQL count
+query.  On very large tables, count queries can have a noticeable
+performance cost.  If you have a more performant method of estimating
+total record count, you can prevent the count query by specifying the
+`total_records:` argument:
 
 ```ruby
 @posts = paginate(Post, total_records: Post.cached_count)
 ```
 
-**What if I want a different param than `:page` to dictate the current
-page?**  That can be configured with `Foliate.config.page_param`, which
-is set in "config/initializers/foliate.rb".
+## Full documentation
 
-**For even more information,** see the
+For more information, see the
 [full documentation](http://www.rubydoc.info/gems/foliate/).
 
 
@@ -86,7 +97,7 @@ gem "foliate"
 Then execute:
 
 ```bash
-$ bundle
+$ bundle install
 ```
 
 And finally, run the installation generator:
