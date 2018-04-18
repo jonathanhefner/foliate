@@ -5,7 +5,7 @@
 
   <span class="foliate-i-of-n">
     <form method="get" class="foliate-form">
-      <% pagination.query_params.each do |name, value| %>
+      <% pagination.each_query_param do |name, value| %>
         <input type="hidden" name="<%= name %>" value="<%= value %>">
       <% end %>
 

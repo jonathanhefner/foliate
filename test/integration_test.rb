@@ -31,13 +31,20 @@ class IntegrationTest < ActionDispatch::IntegrationTest
     iterate_page_and_assert_invariants(test_total_records: 31)
   end
 
+  def test_with_deeply_nested_params
+    iterate_page_and_assert_invariants(
+      shallow: "value",
+      deeply: { nested: { values: [1, 2] } },
+    )
+  end
+
   private
 
   def iterate_page_and_assert_invariants(params = {})
     pagination = Foliate::Pagination.new.tap do |p|
       p.per_page = params[:test_per_page] || Foliate.config.default_per_page
       p.total_records = params[:test_total_records] || Post.count
-      p.query_params = params.stringify_keys.transform_values(&:to_s)
+      p.query_params = params
     end
 
     (1..pagination.total_pages + 1).each do |i|
@@ -58,12 +65,14 @@ class IntegrationTest < ActionDispatch::IntegrationTest
     refute_empty css_select(".foliate-pagination"),
       "missing wrapper div in\n#{css_select("body")}"
 
+    query_param_pairs = parse_query_to_pairs(pagination.query_params.to_query)
+
     # all links...
     css_select(".foliate-pagination a").each do |link|
-      link_params = Rack::Utils.parse_nested_query(URI(link.attr("href")).query)
-      link_page = link_params[Foliate.config.page_param.to_s].try(&:to_i)
+      link_param_pairs = parse_query_to_pairs(URI(link.attr("href")).query)
+      link_page = link_param_pairs.to_h[Foliate.config.page_param.to_s].try(&:to_i)
 
-      assert_empty (pagination.query_params.to_a - link_params.to_a),
+      assert_empty (query_param_pairs - link_param_pairs),
         "link does not preserve query_params:\n#{link}"
 
       refute_equal 1, link_page,
@@ -82,7 +91,8 @@ class IntegrationTest < ActionDispatch::IntegrationTest
       form_param_pairs = css_select(form, 'input').map do |input|
         [input.attr("name"), input.attr("value")]
       end
-      assert_empty (pagination.query_params.to_a - form_param_pairs),
+
+      assert_empty (query_param_pairs - form_param_pairs),
         "form does not preserve query_params:\n#{form}"
     end
   end

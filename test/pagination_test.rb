@@ -37,6 +37,36 @@ class PaginationTest < Minitest::Test
     end
   end
 
+  def test_each_query_param_handles_deeply_nested_params
+    @pagination.query_params = {
+      shallow: "value",
+      deeply: { nested: { values: %w[foo bar] } },
+    }.deep_stringify_keys
+
+    expected_pairs = parse_query_to_pairs(@pagination.query_params.to_query)
+
+    actual_pairs = []
+    @pagination.each_query_param do |name, value|
+      actual_pairs << [name, value]
+    end
+
+    assert_equal expected_pairs, actual_pairs
+  end
+
+  def test_each_query_param_without_block_returns_enumerator
+    @pagination.query_params = { x: "foo", y: "bar" }
+
+    expected_pairs = []
+    @pagination.each_query_param do |name, value|
+      expected_pairs << [name, value]
+    end
+
+    actual = @pagination.each_query_param
+
+    assert_instance_of Enumerator, actual
+    assert_equal expected_pairs, actual.to_a
+  end
+
   def test_params_for_page_has_controller_and_action
     (1..@pagination.total_pages + 1).each do |i|
       params = @pagination.params_for_page(i)

@@ -43,6 +43,32 @@ module Foliate
       (current_page - 1) * per_page
     end
 
+    # Iterates through each {#query_params} as name-value pairs.  Nested
+    # Hashes and Arrays are iterated as well.  The +name+ of nested a
+    # +value+ will reflect its nesting in the same way as when
+    # converting a nested Hash to a query string via +Hash#to_query+.
+    # Intended for use when generating form fields.
+    #
+    # If no block is given, an Enumerator is returned.
+    #
+    # @overload each_query_param
+    #   @yieldparam name [String]
+    #   @yieldparam value [String]
+    #   @return [nil]
+    #
+    # @overload each_query_param
+    #   @return [Enumerator]
+    def each_query_param
+      if block_given?
+        ParamsHelper.to_keyed_pairs(query_params).each do |pair|
+          yield pair[:name], pair[:value]
+        end
+        nil
+      else
+        to_enum(__method__)
+      end
+    end
+
     # Returns linking params for a specified +page_number+.  The
     # returned Hash is intended for use with +link_to+, +url_for+, etc.
     #
@@ -105,6 +131,16 @@ module Foliate
     def to_partial_path
       "pagination/pagination"
     end
+
+    module ParamsHelper
+      extend ActionView::Helpers::UrlHelper
+
+      def self.to_keyed_pairs(params)
+        to_form_params(params)
+      end
+    end
+
+    private_constant :ParamsHelper
 
   end
 end
