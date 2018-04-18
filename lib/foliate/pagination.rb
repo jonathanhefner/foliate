@@ -27,16 +27,16 @@ module Foliate
     #   originating request query params
     attr_accessor :query_params
 
-    # Computes the total number of pages based on +total_records+ and
-    # +per_page+.
+    # Computes the total number of pages based on {#total_records} and
+    # {#per_page}.
     #
     # @return [Integer]
     def total_pages
       (total_records / per_page.to_f).ceil
     end
 
-    # Computes the record set offset based on +current_page+ and
-    # +per_page+.
+    # Computes the record set offset based on {#current_page} and
+    # {#per_page}.
     #
     # @return [Integer]
     def offset
