@@ -46,7 +46,7 @@ Do something with @posts here...
 
 The *foliate* installation generator creates
 "app/views/pagination/_pagination.html.erb" and
-"app/assets/stylesheets/pagination.css" in your project directory.
+"app/assets/stylesheets/pagination.scss" in your project directory.
 These files can be freely edited to suit your needs.
 
 ## Records per page

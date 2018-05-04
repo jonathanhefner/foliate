@@ -12,6 +12,6 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     assert_file "config/initializers/foliate.rb"
     assert_file "config/locales/foliate.yml"
     assert_file "app/views/pagination/_pagination.html.erb"
-    assert_file "app/assets/stylesheets/pagination.css"
+    assert_file "app/assets/stylesheets/pagination.scss"
   end
 end
