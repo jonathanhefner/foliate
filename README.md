@@ -49,6 +49,21 @@ The *foliate* installation generator creates
 "app/assets/stylesheets/pagination.scss" in your project directory.
 These files can be freely edited to suit your needs.
 
+The installation generator also supports a `--bootstrap` option which
+causes the generated stylesheet to apply [Bootstrap 4] classes via Sass
+`@extend` directives.  This allows the pagination element to directly
+blend in with a Bootstrap-styled site.  For this generated stylesheet to
+work, Bootstrap must be loaded into the *same* Sass scope.  For example:
+
+```scss
+// in application.scss
+@import "bootstrap";
+@import "pagination";
+```
+
+[Bootstrap 4]: https://getbootstrap.com/
+
+
 ## Records per page
 
 By default, *foliate* allots `Foliate.config.default_per_page` records
