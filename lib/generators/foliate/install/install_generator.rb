@@ -12,7 +12,7 @@ module Foliate
 
       def copy_config
         template "config/initializer.rb.erb", "config/initializers/foliate.rb"
-        copy_file "config/locales.yml", "config/locales/foliate.yml"
+        copy_file "config/locales.yml", "config/locales/foliate.en.yml"
       end
 
       def copy_view
