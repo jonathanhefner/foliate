@@ -16,7 +16,7 @@ module Foliate
       end
 
       def copy_view
-        copy_file "views/page_input.html.erb", "app/views/pagination/_pagination.html.erb"
+        copy_file "views/page_input.html.erb", "app/views/application/_pagination.html.erb"
         template "stylesheets/page_input.scss.erb", "app/assets/stylesheets/pagination.scss"
       end
     end

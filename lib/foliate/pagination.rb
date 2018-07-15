@@ -129,7 +129,7 @@ module Foliate
     #
     # @return [String]
     def to_partial_path
-      "pagination/pagination"
+      "pagination"
     end
 
     module ParamsHelper

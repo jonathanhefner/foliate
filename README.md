@@ -26,7 +26,7 @@ current page of records, as dictated by `params[:page]`.
 
 Calling `paginate` also sets a `@pagination` instance variable for use
 in the view.  This object can be passed directly to `render`, which will
-then render the "app/views/pagination/_pagination.html.erb" view
+then render the "app/views/application/_pagination.html.erb" view
 partial:
 
 ```html
@@ -45,7 +45,7 @@ Do something with @posts here...
 ## Appearance
 
 The *foliate* installation generator creates
-"app/views/pagination/_pagination.html.erb" and
+"app/views/application/_pagination.html.erb" and
 "app/assets/stylesheets/pagination.scss" in your project directory.
 These files can be freely edited to suit your needs.
 

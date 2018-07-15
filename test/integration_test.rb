@@ -11,28 +11,45 @@ PostsController.class_eval do
   end
 end
 
+Namespaced::ThingsController.class_eval do
+  def index
+    @things = paginate(Namespaced::Thing)
+    render inline: "<%= render @pagination %> <hr> <%= @things.map(&:color) %>"
+  end
+end
+
 class IntegrationTest < ActionDispatch::IntegrationTest
 
-  fixtures :posts
+  fixtures "posts"
+  fixtures "namespaced/things"
+
+  setup do
+    Rails.application.config.action_dispatch.show_exceptions = false
+  end
 
   def test_vanilla
-    iterate_page_and_assert_invariants
+    iterate_page_and_assert_invariants(Post)
+  end
+
+  def test_with_namespaced_resource
+    iterate_page_and_assert_invariants(Namespaced::Thing)
   end
 
   def test_as_array
-    iterate_page_and_assert_invariants(test_as_array: true)
+    iterate_page_and_assert_invariants(Post, test_as_array: true)
   end
 
   def test_with_per_page
-    iterate_page_and_assert_invariants(test_per_page: 13)
+    iterate_page_and_assert_invariants(Post, test_per_page: 13)
   end
 
   def test_with_total_records
-    iterate_page_and_assert_invariants(test_total_records: 31)
+    iterate_page_and_assert_invariants(Post, test_total_records: 31)
   end
 
   def test_with_deeply_nested_params
     iterate_page_and_assert_invariants(
+      Post,
       shallow: "value",
       deeply: { nested: { values: [1, 2] } },
     )
@@ -40,15 +57,15 @@ class IntegrationTest < ActionDispatch::IntegrationTest
 
   private
 
-  def iterate_page_and_assert_invariants(params = {})
+  def iterate_page_and_assert_invariants(model_class, params = {})
     pagination = Foliate::Pagination.new.tap do |p|
       p.per_page = params[:test_per_page] || Foliate.config.default_per_page
-      p.total_records = params[:test_total_records] || Post.count
+      p.total_records = params[:test_total_records] || model_class.count
       p.query_params = params
     end
 
     (1..pagination.total_pages + 1).each do |i|
-      get "/posts", params: params.merge(Foliate.config.page_param => i)
+      get polymorphic_path(model_class), params: params.merge(Foliate.config.page_param => i)
       pagination.current_page = i
       azzert_invariants(pagination)
     end

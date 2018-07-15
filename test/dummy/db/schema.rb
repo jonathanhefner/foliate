@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_11_09_170401) do
+ActiveRecord::Schema.define(version: 2018_07_15_184128) do
+
+  create_table "namespaced_things", force: :cascade do |t|
+    t.string "color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string "title"

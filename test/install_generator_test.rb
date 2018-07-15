@@ -11,7 +11,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_file "config/initializers/foliate.rb"
     assert_file "config/locales/foliate.yml"
-    assert_file "app/views/pagination/_pagination.html.erb"
+    assert_file "app/views/application/_pagination.html.erb"
     assert_file "app/assets/stylesheets/pagination.scss" do |stylesheet|
       refute_stylesheet_whitespace_artifacts stylesheet
     end
