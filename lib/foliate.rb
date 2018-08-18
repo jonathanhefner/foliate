@@ -1,3 +1,5 @@
 require "foliate/version"
 require "foliate/config"
+require "foliate/pagination"
+require "foliate/controller"
 require "foliate/railtie"

@@ -1,5 +1,5 @@
 require "test_helper"
-require "foliate/pagination"
+require "foliate"
 
 class PaginationTest < Minitest::Test
 

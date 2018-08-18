@@ -1,5 +1,3 @@
-require "foliate/controller"
-
 module Foliate
   # @!visibility private
   class Railtie < Rails::Railtie

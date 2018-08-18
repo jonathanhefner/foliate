@@ -1,5 +1,3 @@
-require "foliate/config"
-
 module Foliate
   class Pagination
 

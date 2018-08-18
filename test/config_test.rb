@@ -1,5 +1,5 @@
 require "test_helper"
-require "foliate/config"
+require "foliate"
 
 class ConfigTest < Minitest::Test
 

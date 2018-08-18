@@ -1,6 +1,3 @@
-require "foliate/config"
-require "foliate/pagination"
-
 module Foliate
   module Controller
 
