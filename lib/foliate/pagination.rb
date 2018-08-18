@@ -1,28 +1,34 @@
 module Foliate
   class Pagination
 
+    # Current page number.
+    #
     # @return [Integer]
-    #   current page number
     attr_accessor :current_page
 
+    # Number of records per page.
+    #
     # @return [Integer]
-    #   number of records per page
     attr_accessor :per_page
 
+    # Total number of records.
+    #
     # @return [Integer]
-    #   total number of records
     attr_accessor :total_records
 
+    # Originating controller.
+    #
     # @return [Symbol]
-    #   originating controller
     attr_accessor :controller
 
+    # Originating controller action.
+    #
     # @return [Symbol]
-    #   originating controller action
     attr_accessor :action
 
+    # Originating request query params.
+    #
     # @return [Hash]
-    #   originating request query params
     attr_accessor :query_params
 
     # Computes the total number of pages based on {#total_records} and

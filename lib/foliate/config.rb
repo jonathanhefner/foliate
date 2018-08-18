@@ -1,13 +1,15 @@
 module Foliate
 
   class Config
+    # Default number of records to allot per page.  Defaults to +10+.
+    #
     # @return [Integer]
-    #   default number of records to allot per page (defaults to +10+)
     attr_accessor :default_per_page
 
+    # Name of query param used to indicate page number.  Defaults to
+    # +:page+.
+    #
     # @return [Symbol]
-    #   request query param name for specifying page numbers (defaults
-    #   to +:page+)
     attr_accessor :page_param
 
     def initialize
