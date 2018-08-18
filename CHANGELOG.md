@@ -1,7 +1,15 @@
+## 2.0.0
+
+* Fixed `render @pagination` for namespaced resources.
+* [BREAKING] Moved view to "app/views/application/_pagination.html.erb".
+* [BREAKING] Renamed locales file to "foliate.en.yml".
+
+
 ## 1.2.0
 
 * Added `--bootstrap` option to `foliate:install` generator to apply
   Bootstrap 4 classes in generated stylesheet.
+
 
 ## 1.1.0
 
